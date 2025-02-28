@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraping Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    background: #2c3e50;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    transition: all 0.3s;
+    font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+    background: #3498db;
+    border-radius: 10px;
+    transform: scale(1.1);
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    margin-top: -30px;
+    padding: 100px 20px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.hero-title {
+    font-size: 3rem;
+    color: #00c6ff;
+    text-shadow: 0 0 15px #00c6ff, 0 0 30px #00c6ff;
+    margin-bottom: 20px;
+    animation: slideUp 1.5s ease-out;
+}
+
+.hero-text {
+    font-size: 1.2rem;
+    color: #fff;
+    opacity: 0.8;
+    margin-bottom: 40px;
+    animation: fadeIn 2s ease-out;
+}
+
+/* Search Bar */
+.search-bar {
+    /* margin: 20px 0; */
+    margin-top: -50px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    animation: fadeIn 1s ease-out;
+}
+
+.search-bar input {
+    padding: 15px;
+    width: 60%;
+    border-radius: 20px;
+    border: 2px solid #3498db;
+    outline: none;
+    font-size: 1.1rem;
+    transition: border 0.3s ease-in-out;
+}
+
+.search-bar input:focus {
+    border-color: #2980b9;
+}
+
+.search-bar button {
+    padding: 15px 30px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    font-size: 1.1rem;
+}
+
+.search-bar button:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Result Area */
+.result {
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    max-width: 800px;
+    color: #a8ffb8;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    overflow-y: auto;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Footer */
+footer {
+    background: #2c3e50;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px;
+    font-size: 1rem;
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+h1, .hero-title {
+    animation: slideUp 1.5s ease-out;
+}
+
+.hero-text, .search-bar, .result {
+    animation: fadeIn 1.5s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .search-bar input {
+        width: 80%;
+    }
+
+    .search-bar button {
+        font-size: 1rem;
+    }
+
+    .result {
+        font-size: 1rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="feature.html">Features</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main class="container">
+        <div class="hero-section">
+            <h1 class="hero-title">Welcome to Web Scraping Tool</h1>
+            <p class="hero-text">Scrape website content effortlessly and interactively.</p>
+        </div>
+
+        <!-- Search Bar Section -->
+        <div class="search-bar">
+            <input type="text" id="url-input" placeholder="Enter URL to scrape..." aria-label="Enter URL">
+            <button id="scrape-btn" aria-label="Scrape Website">Scrape</button>
+        </div>
+        <br>
+        <br>
+
+        <!-- Result Area -->
+        <div class="result">
+            <h2>Scraped Data:</h2>
+            <pre id="output">No data yet...</pre>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Web Scraping Project. All rights reserved.</p>
+    </footer>
+
+    <script>
+        
+    </script>
+</body>
+</html>
